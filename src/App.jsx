@@ -1,15 +1,18 @@
 import { useState } from "react";
 import "./App.css";
+import Navigation from "./components/Navigation/Navigation";
+import Logo from "./components/Logo/Logo";
 
 function App() {
   const [count, setCount] = useState(0);
 
   return (
-    <>
-      <h1>Hello Worlds</h1>
-      <h1>Hello Worlds</h1>
-      <h1>Hello Worlds</h1>
-    </>
+    <div className="App">
+      <Navigation />
+      <Logo />
+      {/* <ImageLinkForm />
+      <FaceRecognition /> */}
+    </div>
   );
 }
 
