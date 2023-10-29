@@ -4,12 +4,12 @@ import Navigation from "./components/Navigation/Navigation";
 import Logo from "./components/Logo/Logo";
 import ImageLinkForm from "./components/ImageLinkForm/ImageLinkForm";
 import Rank from "./components/Rank/Rank";
+import ParticlesBg from "particles-bg";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <div className="App">
+      <ParticlesBg type="cobweb" bg={true} />
       <Navigation />
       <Logo />
       <Rank />
