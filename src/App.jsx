@@ -7,12 +7,14 @@ import ParticlesBg from "particles-bg";
 import { useEffect, useState } from "react";
 import FaceRecognition from "./components/FaceRecognition/FaceRecognition";
 import sendImagePrediction from "./utils/facePredictionHelper";
+import SignIn from "./components/SignIn/SignIn";
 
 function App() {
   //States
   const [imgURL, setImgURL] = useState("");
   const [image, setImage] = useState("");
   const [box, setBox] = useState({});
+  const [route, setRoute] = useState("signin");
 
   const calcFaceLoc = (data) => {
     const faceBox = data.outputs[0].data.regions[0].region_info.bounding_box;
@@ -46,10 +48,19 @@ function App() {
     <div className="App">
       <ParticlesBg type="cobweb" bg={true} />
       <Navigation />
-      <Logo />
-      <Rank />
-      <ImageLinkForm onInputChange={onInputChange} onBtnSubmit={onBtnSubmit} />
-      <FaceRecognition box={box} imageURL={image} />
+      {route === "signin" ? (
+        <SignIn />
+      ) : (
+        <>
+          <Logo />
+          <Rank />
+          <ImageLinkForm
+            onInputChange={onInputChange}
+            onBtnSubmit={onBtnSubmit}
+          />
+          <FaceRecognition box={box} imageURL={image} />
+        </>
+      )}
     </div>
   );
 }
