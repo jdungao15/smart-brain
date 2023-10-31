@@ -32,7 +32,7 @@ const sendImagePrediction = async (img) => {
     },
     body: raw,
   };
-  console.log(requestOptions);
+
   try {
     const response = await fetch(
       "https://api.clarifai.com/v2/models/" + MODEL_ID + "/outputs",

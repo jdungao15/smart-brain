@@ -4,14 +4,14 @@ import Logo from "./components/Logo/Logo";
 import ImageLinkForm from "./components/ImageLinkForm/ImageLinkForm";
 import Rank from "./components/Rank/Rank";
 import ParticlesBg from "particles-bg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import FaceRecognition from "./components/FaceRecognition/FaceRecognition";
 import sendImagePrediction from "./utils/facePredictionHelper";
 
 function App() {
   //States
-  const [input, setInput] = useState("");
-  const [imageURL, setImageURL] = useState("");
+  const [imgURL, setImgURL] = useState("");
+  const [image, setImage] = useState("");
   const [box, setBox] = useState({});
 
   const calcFaceLoc = (data) => {
@@ -32,13 +32,12 @@ function App() {
   };
 
   const onInputChange = (evt) => {
-    setInput(evt.target.value);
+    setImgURL(evt.target.value);
   };
 
   const onBtnSubmit = async () => {
-    setImageURL(input);
-    let data = await sendImagePrediction(imageURL);
-
+    setImage(imgURL);
+    let data = await sendImagePrediction(imgURL);
     let faceCalcData = await calcFaceLoc(data);
     await displayFaceBox(faceCalcData);
   };
@@ -50,7 +49,7 @@ function App() {
       <Logo />
       <Rank />
       <ImageLinkForm onInputChange={onInputChange} onBtnSubmit={onBtnSubmit} />
-      <FaceRecognition box={box} imageURL={imageURL} />
+      <FaceRecognition box={box} imageURL={image} />
     </div>
   );
 }
