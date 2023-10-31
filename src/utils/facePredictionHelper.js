@@ -1,4 +1,4 @@
-const sendImagePrediction = async (image) => {
+const sendImagePrediction = async (img) => {
   // Your PAT (Personal Access Token) can be found in the portal under Authentification
   const PAT = "94a0bdd792b64b2592527b1686e3ec5c";
   // Specify the correct user_id/app_id pairings
@@ -17,7 +17,7 @@ const sendImagePrediction = async (image) => {
       {
         data: {
           image: {
-            url: image,
+            url: img,
           },
         },
       },
@@ -32,12 +32,14 @@ const sendImagePrediction = async (image) => {
     },
     body: raw,
   };
+  console.log(requestOptions);
   try {
     const response = await fetch(
       "https://api.clarifai.com/v2/models/" + MODEL_ID + "/outputs",
       requestOptions
     );
     const result = await response.json();
+    console.log(result);
     return result;
   } catch (error) {
     console.error(error);

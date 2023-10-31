@@ -29,7 +29,6 @@ function App() {
 
   const displayFaceBox = (boxData) => {
     setBox(boxData);
-    console.log(box);
   };
 
   const onInputChange = (evt) => {
@@ -39,7 +38,9 @@ function App() {
   const onBtnSubmit = async () => {
     setImageURL(input);
     let data = await sendImagePrediction(imageURL);
-    displayFaceBox(calcFaceLoc(data));
+
+    let faceCalcData = await calcFaceLoc(data);
+    await displayFaceBox(faceCalcData);
   };
 
   return (
