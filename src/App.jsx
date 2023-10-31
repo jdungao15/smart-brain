@@ -12,18 +12,34 @@ function App() {
   //States
   const [input, setInput] = useState("");
   const [imageURL, setImageURL] = useState("");
+  const [box, setBox] = useState({});
 
-  // NOTE: MODEL_VERSION_ID is optional, you can also call prediction with the MODEL_ID only
-  // https://api.clarifai.com/v2/models/{YOUR_MODEL_ID}/outputs
-  // this will default to the latest version_id
+  const calcFaceLoc = (data) => {
+    const faceBox = data.outputs[0].data.regions[0].region_info.bounding_box;
+    const image = document.getElementById("inputImage");
+    const width = Number(image.width);
+    const height = Number(image.height);
+    return {
+      leftCol: faceBox.left_col * width,
+      topRow: faceBox.top_row * height,
+      rightCol: width - faceBox.right_col * width,
+      bottomRow: height - faceBox.bottom_row * height,
+    };
+  };
+
+  const displayFaceBox = (boxData) => {
+    setBox(boxData);
+    console.log(box);
+  };
 
   const onInputChange = (evt) => {
     setInput(evt.target.value);
   };
 
-  const onBtnSubmit = () => {
+  const onBtnSubmit = async () => {
     setImageURL(input);
-    sendImagePrediction(imageURL);
+    let data = await sendImagePrediction(imageURL);
+    displayFaceBox(calcFaceLoc(data));
   };
 
   return (
@@ -33,7 +49,7 @@ function App() {
       <Logo />
       <Rank />
       <ImageLinkForm onInputChange={onInputChange} onBtnSubmit={onBtnSubmit} />
-      <FaceRecognition imageURL={imageURL} />
+      <FaceRecognition box={box} imageURL={imageURL} />
     </div>
   );
 }

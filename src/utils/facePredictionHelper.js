@@ -1,10 +1,10 @@
-const sendImagePrediction = (image) => {
+const sendImagePrediction = async (image) => {
   // Your PAT (Personal Access Token) can be found in the portal under Authentification
   const PAT = "94a0bdd792b64b2592527b1686e3ec5c";
   // Specify the correct user_id/app_id pairings
   // Since you're making inferences outside your app's scope
-  const USER_ID = "jdungao15";
-  const APP_ID = "faceDetectionApp";
+  const USER_ID = "clarifai";
+  const APP_ID = "main";
   // Change these to whatever model and image URL you want to use
   const MODEL_ID = "face-detection";
 
@@ -32,16 +32,16 @@ const sendImagePrediction = (image) => {
     },
     body: raw,
   };
-
-  fetch(
-    "https://api.clarifai.com/v2/models/" + MODEL_ID + "/outputs",
-    requestOptions
-  )
-    .then((response) => response.json())
-    .then((result) =>
-      console.log(result.outputs[0].data.regions[0].region_info.bounding_box)
-    )
-    .catch((error) => console.log("error", error));
+  try {
+    const response = await fetch(
+      "https://api.clarifai.com/v2/models/" + MODEL_ID + "/outputs",
+      requestOptions
+    );
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 export default sendImagePrediction;
