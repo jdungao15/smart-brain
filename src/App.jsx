@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import FaceRecognition from "./components/FaceRecognition/FaceRecognition";
 import sendImagePrediction from "./utils/facePredictionHelper";
 import SignIn from "./components/SignIn/SignIn";
+import Register from "./components/Register/Register";
 
 function App() {
   //States
@@ -47,14 +48,12 @@ function App() {
   };
 
   const onRouteChange = (route) => {
-    if (route === "signin") {
-      setRoute("signin");
+    if (route === "signout") {
       setIsSignedIn(false);
     } else if (route === "home") {
-      setRoute("home");
       setIsSignedIn(true);
     } else {
-      setRoute("register");
+      setRoute(route);
     }
   };
 
@@ -72,8 +71,10 @@ function App() {
           />
           <FaceRecognition box={box} imageURL={imgURL} />
         </div>
-      ) : (
+      ) : route === "signin" ? (
         <SignIn onRouteChange={onRouteChange} />
+      ) : (
+        <Register onRouteChange={onRouteChange} />
       )}
     </div>
   );
