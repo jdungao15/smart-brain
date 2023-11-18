@@ -125,7 +125,8 @@ function App() {
     <div className="App">
       <ParticlesBg type="cobweb" bg={true} />
       <Navigation isSignedIn={isSignedIn} onRouteChange={onRouteChange} />
-      <div>
+    {route === "home" ? (
+        <div>
           <Logo />
           <Rank user={user} />
           <ImageLinkForm
@@ -133,7 +134,12 @@ function App() {
             onBtnSubmit={onBtnSubmit}
           />
           <FaceRecognition box={box} imageURL={imgURL} />
-      </div>
+        </div>
+      ) : route === "signin" ? (
+        <SignIn onRouteChange={onRouteChange} loadUser={loadUser} />
+      ) : (
+        <Register onRouteChange={onRouteChange} loadUser={loadUser} />
+      )}
     </div>
   );
 }
