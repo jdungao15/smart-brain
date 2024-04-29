@@ -13,7 +13,7 @@ function App() {
   //States
   const [imgURL, setImgURL] = useState("");
   const [box, setBox] = useState({});
-  const [route, setRoute] = useState("signin");
+  const [route, setRoute] = useState("home");
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [user, setUser] = useState({
     id: "",
@@ -63,17 +63,17 @@ function App() {
         requestOptions
       );
       const result = await response.json();
-      if (result.status.code === 10000) {
-        const response = await fetch("http://localhost:3000/image", {
-          method: "put",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ id: user.id }),
-        });
-        const count = await response.json();
-        setUser((preVal) => {
-          return { ...preVal, entries: count };
-        });
-      }
+      // if (result.status.code === 10000) {
+      //   const response = await fetch("http://localhost:3000/image", {
+      //     method: "put",
+      //     headers: { "Content-Type": "application/json" },
+      //     body: JSON.stringify({ id: user.id }),
+      //   });
+      //   const count = await response.json();
+      //   setUser((preVal) => {
+      //     return { ...preVal, entries: count };
+      //   });
+      // }
       return result;
     } catch (error) {
       console.error(error);
